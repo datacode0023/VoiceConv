@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Conversation Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="controls">
+        <h1>Offline Voice Conversation</h1>
+        <p>
+          This demo streams microphone audio to a FastAPI backend, transcribes it
+          with Vosk, generates a lightweight response, and speaks it back using
+          Coqui TTS.
+        </p>
+        <div class="buttons">
+          <button id="start-btn">Start Conversation</button>
+          <button id="stop-btn" disabled>Stop</button>
+        </div>
+        <div class="status" id="status">Disconnected</div>
+      </section>
+      <section class="transcripts">
+        <h2>Live Transcript</h2>
+        <div class="transcript">
+          <h3>You</h3>
+          <p id="partial"></p>
+          <p id="final"></p>
+        </div>
+        <div class="transcript">
+          <h3>Assistant</h3>
+          <p id="assistant"></p>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
