@@ -9,9 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.websockets import WebSocketState
 
-from pipeline.conversation import ConversationManager
-from pipeline.recognizer import StreamingRecognizer
-from pipeline.tts import SpeechSynthesizer
+from .pipeline.conversation import ConversationManager
+from .pipeline.recognizer import StreamingRecognizer
+from .pipeline.tts import SpeechSynthesizer
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
