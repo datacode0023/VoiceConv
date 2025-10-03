@@ -1,5 +1,5 @@
 import asyncio
-from typing import AsyncGenerator, Tuple
+from typing import AsyncGenerator, Optional, Tuple
 
 import numpy as np
 from scipy.signal import resample_poly
@@ -7,9 +7,20 @@ from TTS.api import TTS
 
 
 class SpeechSynthesizer:
-    def __init__(self, target_sample_rate: int = 16000) -> None:
+    def __init__(
+        self,
+        target_sample_rate: int = 16000,
+        model_name: str = "tts_models/en/vctk/vits",
+        speaker: Optional[str] = None,
+    ) -> None:
         self.target_sample_rate = target_sample_rate
-        self._tts = TTS("tts_models/en/vctk/vits", progress_bar=False, gpu=False)
+        self._tts = TTS(model_name, progress_bar=False, gpu=False)
+
+        if speaker is None:
+            available_speakers = getattr(self._tts, "speakers", None) or []
+            speaker = available_speakers[0] if available_speakers else None
+
+        self._speaker = speaker
 
     async def stream_speech(self, text: str) -> AsyncGenerator[bytes, None]:
         if not text.strip():
@@ -27,7 +38,8 @@ class SpeechSynthesizer:
             yield chunk.tobytes()
 
     def _synthesize(self, text: str) -> Tuple[np.ndarray, int]:
-        wav = self._tts.tts(text)
+        kwargs = {"speaker": self._speaker} if self._speaker else {}
+        wav = self._tts.tts(text, **kwargs)
         sample_rate = self._tts.synthesizer.output_sample_rate
         return wav, sample_rate
 
