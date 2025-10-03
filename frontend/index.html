@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Conversation Demo</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="controls">
+        <h1>Voice Conversation</h1>
+        <p>Hold the button to speak. Release to hear the assistant.</p>
+        <button id="talk-btn" class="primary">Hold to talk</button>
+        <button id="reset-btn" class="secondary">Reset conversation</button>
+        <div class="status" id="status">Disconnected</div>
+      </section>
+      <section class="transcript">
+        <h2>Conversation</h2>
+        <div id="conversation-log" class="log"></div>
+      </section>
+    </main>
+    <script type="module" src="/static/script.js"></script>
+  </body>
+</html>
