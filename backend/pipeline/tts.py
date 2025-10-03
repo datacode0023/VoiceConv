@@ -10,7 +10,7 @@ class SpeechSynthesizer:
     def __init__(
         self,
         target_sample_rate: int = 16000,
-        model_name: str = "tts_models/en/vctk/vits",
+        model_name: str = "tts_models/en/ljspeech/vits",
         speaker: Optional[str] = None,
     ) -> None:
         self.target_sample_rate = target_sample_rate
