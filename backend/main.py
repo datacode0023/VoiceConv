@@ -6,6 +6,7 @@ from typing import Optional
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.websockets import WebSocketState
 
@@ -29,7 +30,11 @@ def create_app() -> FastAPI:
 
     static_dir = Path(__file__).resolve().parent.parent / "frontend"
     if static_dir.exists():
-        app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="frontend")
+        app.mount("/static", StaticFiles(directory=str(static_dir)), name="frontend")
+
+        @app.get("/")
+        async def serve_index() -> FileResponse:
+            return FileResponse(static_dir / "index.html")
 
     synthesizer = SpeechSynthesizer()
     conversation_manager = ConversationManager()
